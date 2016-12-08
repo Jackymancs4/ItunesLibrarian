@@ -1,9 +1,7 @@
+import untangle
+import csv
+
 def to_dict(input):
-    pass
-
-
-def to_csv(input, output):
-
     obj = untangle.parse(input)
 
     tracklist = obj.plist.dict.dict
@@ -39,10 +37,17 @@ def to_csv(input, output):
         finallibrary.append(finaltrack)
         finaltrack = sampletrack.copy()
 
-    with open(arguments["--output"], 'w') as csvfile:
-        fieldnames = sampletrack.keys()
+    return finallibrary
+
+
+def to_csv(input, output):
+
+    library = to_dict(input)
+
+    with open(output, 'w') as csvfile:
+        fieldnames = library[0].keys()
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
         writer.writeheader()
-        for realtrack in finallibrary:
-            writer.writerow(realtrack)
+        for track in library:
+            writer.writerow(track)

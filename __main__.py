@@ -15,11 +15,11 @@ Options:
   -c, --check           [default: false]
 
 """
-import csv
 import os.path
 import urllib.request
 
-import untangle
+import ituneslibrarian.parse
+from docopt import docopt
 from mutagen.easyid3 import EasyID3
 from mutagen.mp3 import MP3
 from prompt_toolkit import prompt
@@ -31,7 +31,8 @@ if __name__ == '__main__':
     arguments = docopt(__doc__, version='ItunesLibrary 1.0')
 
     if arguments["parse"]:
-        print("Not implemented yet")
+        ituneslibrarian.parse.to_csv(
+            arguments["--input"], arguments["--output"])
 
     if arguments["search"]:
         print("Not implemented yet")
