@@ -16,12 +16,16 @@ Options:
 
 """
 import csv
+import os.path
 import urllib.request
 
 import untangle
-from docopt import docopt
 from mutagen.easyid3 import EasyID3
 from mutagen.mp3 import MP3
+from prompt_toolkit import prompt
+from prompt_toolkit.shortcuts import print_tokens
+from prompt_toolkit.styles import style_from_dict
+from pygments.token import Token
 
 if __name__ == '__main__':
     arguments = docopt(__doc__, version='ItunesLibrary 1.0')
