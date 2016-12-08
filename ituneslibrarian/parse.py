@@ -1,42 +1,48 @@
-obj = untangle.parse(arguments["--input"])
+def to_dict(input):
+    pass
 
-tracklist = obj.plist.dict.dict
 
-library = []
-track = {}
-sampletrack = {}
+def to_csv(input, output):
 
-maxparam = 0
-maxtrack = 0
+    obj = untangle.parse(input)
 
-for xmltrack in tracklist.dict:
+    tracklist = obj.plist.dict.dict
 
+    library = []
     track = {}
-    lastdata = ""
+    sampletrack = {}
 
-    for data in xmltrack.children:
+    maxparam = 0
+    maxtrack = 0
 
-        if data._name == "key":
-            lastdata = data.cdata
-            sampletrack[lastdata] = ""
-        else:
-            track[lastdata] = data.cdata
+    for xmltrack in tracklist.dict:
 
-    library.append(track)
+        track = {}
+        lastdata = ""
 
-finallibrary = []
-finaltrack = sampletrack.copy()
+        for data in xmltrack.children:
 
-for dicttrack in library:
-    for key in dicttrack:
-        finaltrack[key] = dicttrack[key]
-    finallibrary.append(finaltrack)
+            if data._name == "key":
+                lastdata = data.cdata
+                sampletrack[lastdata] = ""
+            else:
+                track[lastdata] = data.cdata
+
+        library.append(track)
+
+    finallibrary = []
     finaltrack = sampletrack.copy()
 
-with open(arguments["--output"], 'w') as csvfile:
-    fieldnames = sampletrack.keys()
-    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+    for dicttrack in library:
+        for key in dicttrack:
+            finaltrack[key] = dicttrack[key]
+        finallibrary.append(finaltrack)
+        finaltrack = sampletrack.copy()
 
-    writer.writeheader()
-    for realtrack in finallibrary:
-        writer.writerow(realtrack)
+    with open(arguments["--output"], 'w') as csvfile:
+        fieldnames = sampletrack.keys()
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+        writer.writeheader()
+        for realtrack in finallibrary:
+            writer.writerow(realtrack)
