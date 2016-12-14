@@ -1,5 +1,7 @@
-import untangle
 import csv
+
+import untangle
+
 
 def to_dict(input):
     obj = untangle.parse(input)

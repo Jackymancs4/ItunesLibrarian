@@ -3,9 +3,10 @@ from prompt_toolkit.shortcuts import print_tokens
 from prompt_toolkit.styles import style_from_dict
 from pygments.token import Token
 
+
 def prompt(message, options_values, default_index):
 
-    if default_index != False:
+    if default_index is not False:
         default_value = options_values[default_index]
         default_print_message = " [default: " + str(default_value) + "] "
     else:
@@ -18,7 +19,7 @@ def prompt(message, options_values, default_index):
         input_value = pprompt(
             message + str(options_values) + default_print_message)
 
-        if default_value != False and input_value == "":
+        if default_value is not False and input_value == "":
             input_value = default_value
 
     return input_value
@@ -52,6 +53,7 @@ def warning_print(message):
         (Token, '\n'),
     ]
     print_tokens(tokens, style=warning_style)
+
 
 def error_print(message):
 
