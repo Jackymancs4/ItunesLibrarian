@@ -16,22 +16,27 @@ Options:
 
 """
 
-import ituneslibrarian.modify
-import ituneslibrarian.parse
+import modify
+import parse
 from docopt import docopt
 
-if __name__ == '__main__':
+
+def main():
     arguments = docopt(__doc__, version='ItunesLibrary 1.0')
 
     if arguments["parse"]:
-        ituneslibrarian.parse.to_csv(
+        parse.to_csv(
             arguments["--input"], arguments["--output"])
 
     if arguments["search"]:
         print("Not implemented yet")
 
     if arguments["modify"]:
-        library = ituneslibrarian.parse.to_dict(
+
+        library = parse.to_dict(
             arguments["--input"])
 
-        ituneslibrarian.modify.library(library)
+        modify.library(library)
+
+if __name__ == "__main__":
+    main()
