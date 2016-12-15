@@ -29,15 +29,14 @@ setup(
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),
     data_files=[('.', ['README.md'])],
 
-    # py_modules=["my_module"],
-    # install_requires=['peppercorn'],
-    # extras_require={
-    #    'dev': ['check-manifest'],
-    #    'test': ['coverage'],
-    # },
-    # package_data={
-    #    'sample': ['package_data.dat'],
-    # },
+    install_requires=[
+      'docopt',
+      'mutagen',
+      'untangle',
+      'prompt_toolkit',
+      'pygments'
+    ],
+
     entry_points={
        'console_scripts': [
            'ituneslibrarian=ituneslibrarian:__main__',
