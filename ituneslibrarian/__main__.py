@@ -3,7 +3,8 @@
 Usage:
   ituneslibrarian.py parse [-i <input>] [-o <output>] [-c]
   ituneslibrarian.py search -f <name> [-s] [-c] [-p | -n] [--no-album | --album=<album>] [--no-artist | --artist=<artist>] [--no-title | --title=<title>]
-  ituneslibrarian.py modify split [-b <symbol>] [-i <input>] [-s]
+  ituneslibrarian.py modify split [-b <symbol>] [-i <input>] [--skip-no-album]
+  ituneslibrarian.py extract
 
 Options:
   -i, --input <input>     [default: Library.xml]
@@ -31,12 +32,15 @@ def main():
     if arguments["search"]:
         print("Not implemented yet")
 
+    if arguments["extract"]:
+        print("Not implemented yet")
+
     if arguments["modify"]:
 
         library = parse.to_dict(
             arguments["--input"])
 
-        modify.library(library)
+        modify.library(library, arguments["--skip-no-album"])
 
 if __name__ == "__main__":
     main()

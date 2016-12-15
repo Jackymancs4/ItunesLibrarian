@@ -6,7 +6,7 @@ from mutagen.easyid3 import EasyID3
 from mutagen.mp3 import MP3
 
 
-def library(library):
+def library(library, skipnoalbum = False):
 
     for track in library:
 
@@ -72,13 +72,15 @@ def library(library):
                     else:
                         utils.warning_print("no album artist")
 
-                        artist_duplication = utils.prompt(
-                            'Would you like to substitute < no album artist > with < ' + audio["artist"][0] + ' >? ', ["1", "2", "s"], 1)
+                        if skipnoalbum is False:
 
-                        if artist_duplication == "1":
-                            audio["albumartist"] = audio["artist"]
-                        elif artist_duplication == "2":
-                            audio["albumartist"] = []
+                            artist_duplication = utils.prompt(
+                                'Would you like to substitute < no album artist > with < ' + audio["artist"][0] + ' >? ', ["1", "2", "s"], 1)
+
+                            if artist_duplication == "1":
+                                audio["albumartist"] = audio["artist"]
+                            elif artist_duplication == "2":
+                                audio["albumartist"] = []
 
                 else:
                     utils.warning_print("no artist")
