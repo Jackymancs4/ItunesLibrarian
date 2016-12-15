@@ -8,7 +8,7 @@ install:
   - pip install coveralls
 
 script:
-  coverage run ituneslibrarian
+  coverage run ituneslibrarian search -f aaa
 
 after_success:
   coveralls
