@@ -2,7 +2,17 @@ language: python
 python:
   - "3.5"
 # command to install dependencies
-script: python tests/test.py
+
+install:
+  pip install coverage
+  pip install coveralls
+
+script:
+  coverage run ituneslibrarian
+
+after_success:
+  coveralls
+
 branches:
   only:
     - master
