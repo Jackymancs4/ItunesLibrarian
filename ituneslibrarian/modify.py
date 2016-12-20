@@ -32,7 +32,7 @@ def library(library, skipnoalbum = False):
                     if audio["title"][0] != title:
 
                         utils.warning_print('different titles\n\tTitle: ' +
-                                            str(audio["title"]) + "\n" + '\tName: ' + title)
+                                            str(audio["title"][0]) + "\n" + '\tName: ' + title)
 
                         title_selection = utils.prompt(
                             'Which one would you like to keep? ', ["1", "2", "s"], 0)
@@ -109,12 +109,14 @@ def library(library, skipnoalbum = False):
                             noconflicts["artist"] = comp
                             del title_components_dir[i]
 
-                        print("\t" + str(i) + " - " + comp)
+                        print("\t" + str(i+1) + " - " + comp)
                         i += 1
 
-                    print (len(title_components_dir))
+                    # print (len(title_components_dir))
 
-                    if len(title_components_dir) == 1:
+                    title_components_keys = list(title_components_dir.keys())
+
+                    if len(title_components_keys) == 1:
                         suggestion = 0
                     else:
                         suggestion = False
@@ -122,20 +124,26 @@ def library(library, skipnoalbum = False):
                     if noconflicts["title"] is False:
 
                         newtitle = utils.prompt(
-                            'Which term is the title? ', [str(val) for val in list(title_components_dir.keys())] + ["s"], suggestion)
+                            'Which term is the title? ', [str(val+1) for val in title_components_keys] + ["s"], suggestion)
 
                         if newtitle != "s":
                             audio["title"] = title_components[
-                                int(newtitle)].strip()
+                                int(newtitle)-1].strip()
+                            title_components_keys.remove(int(newtitle)-1)
+
+                    if len(title_components_keys) == 1:
+                        suggestion = 0
+                    else:
+                        suggestion = False
 
                     if noconflicts["artist"] is False:
 
                         newartist = utils.prompt(
-                            'Which term is the artist? ', [str(val) for val in list(title_components_dir.keys())] + ["s"], suggestion)
+                            'Which term is the artist? ', [str(val+1) for val in title_components_keys] + ["s"], suggestion)
 
                         if newartist != "s":
                             audio["artist"] = title_components[
-                                int(newartist)].strip()
+                                int(newartist)-1].strip()
 
                 audio.save()
 
